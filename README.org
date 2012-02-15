@@ -1,0 +1,185 @@
+#+TITLE: PicaRecord -- Object oriented interface to Pica+ records
+#+AUTHOR: David Maus
+#+EMAIL: maus@hab.de
+
+* About
+
+PicaRecord provides an object oriented interface to Pica+ records, fields, and subfields. It does
+not provide the means to read or write Pica+ records. In order to do so you need to install the
+packages PicaReader and PicaWriter that are available via the same PEAR channel.
+
+PicaRecord is copyright (c) 2012 by Herzog August Bibliothek Wolfenbüttel and released under the
+terms of the GNU General Public License v3.
+
+* Installation
+
+PicaRecord should be installed using the [[http://pear.php.net][PEAR Installer]]. This installer is the PHP community's
+de-facto standard for installing PHP packages.
+
+#+BEGIN_EXAMPLE
+pear channel-discover hab20.hab.de/service/pear
+pear install --alldeps hab20.hab.de/service/pear/PicaRecord
+#+END_EXAMPLE
+
+PicaRecord depends on the [[http://phix-project.org/][Phix project's]] PSR0 compliant autolader, =Autoloader=.
+
+* Usage
+
+** Records, Fields, and Subfields
+
+*** Subfields
+
+Subfields are represented by the =Subfield= class. A Pica+ subfield is a cons (pair) of an
+alphanumeric case-sensitive ASCII character and a non-empty string value. The code of a subfield is
+considered to be immutable and the value must not be the empty string.
+
+*** Fields
+
+Field are represented by the =Field= class. A Pica+ field is an ordered list of subfields and
+partially identified[1] by two properties, the field tag and the field occurrence. Both properties
+are set on instantiation and considered to be immutable.
+
+In the following text the /field shorthand/ refers to a string consisting of the field tag, followed
+by a forward slash (ASCII 47) followed by two digits denoting the field occurrence. For example the
+field shorthand of the field 021A with an occurrence of 0 is =021A/00=.
+
+**** Retrieving subfields
+
+=Field::getSubfields()= returns all subfields of a field when called with no arguments. To retrieve
+specific subfields you can pass an arbitrary number of arguments each representing a subfield
+code. If you do so the returned array will be constructed as follows:
+
+Each element of the returned array corresponds to a subfield code in the argument list. If the field
+has a subfield with the specified code the element of the returned array contains the subfield. If
+the field does not have a subfield with the specified code the element of the returned array
+contains =NULL=. In order to retrieve multiple subfields with the same subfield code you need to
+repeat the subfield code in the argument list. The first occurrence of the code in the argument list
+refers to the first subfield with the specified code, the second occurrence to the second subfield
+and so on.
+
+Because =Field::getSubfields()= when called with subfield codes as arguments returns an array with a
+known size (as much elements as arguments were passed to the function) you can conveniently use
+PHP's =list()= operation.
+
+Example: To retrieve the first and last name of the author encoded in the Pica+ field =028A/00= you
+can call =Field::getSubfields()= as follows:
+
+#+BEGIN_EXAMPLE
+list($firstName, $lastName, $personalName) = $field->getSubfields('d', 'a', '5');
+#+END_EXAMPLE
+
+**** Manipulating the subfield list
+
+You can use =Field::addSubfield()= to add a field to the end of the subfield list. If the subfield
+is already part of the subfield list an =InvalidArgumentException= is thrown. For more sophisticated
+manipulations of a field's subfield list you can use =Field::setSubfields()= to replace the subfield
+list of a field. 
+
+A subfield can be deleted using =Field::removeSubfield()= which takes the subfield to delete as sole
+argument and throws an =InvalidArgumentException= if the field does not contain the subfield.
+
+*** Records
+
+**** Record classes
+
+PicaRecord provides classes for the four record types of /title records/, /authority records/,
+/local records/, and /copy records/. The relationship of title, local, and copy records is as
+follows: A title record may contain zero or more local records. Each local record may contain up to
+99 copy records.
+
+Local records can be identified by the internal library number (ILN) of the library they belong to
+and retrieved either by =TitleRecord::getLocalRecord()=, which returns an array of all local
+records, or =TitleRecord::getLocalRecordByILN()= which retrieves a single local record identifed by
+its first argument.
+
+Copy records hold information about particular items (exemplars) and are identified by the number of
+the item in the local record. You can use =LocalRecord::getCopyRecords()= or
+=LocalRecord::getLocalRecordByItemNumber()= to retrieve an array with all copy records or a single
+copy record with a specified item number respectively.
+
+All record classes implement the two methods =Record::isEmpty()= which returns =TRUE= if a record is
+empty (does not contain any fields) and =Record::isValid()= which performs a preliminary validation
+of the record.
+
+**** Selecting and deleting fields
+
+=Record::getFields()= returns all fields of the record when called without arguments. If you call it
+with the body of a regular expression as argument it will only return the fields whose shorthand is
+matched by the regular expression.
+
+=Record::select()= provides a more generic access to a record's fields. It takes a predicate
+function as argument and returns all fields that fullfill the predicate. A predicate function can be
+any valid PHP callback that takes a Field as argument and return TRUE if the field fullfills the
+predicate or otherwise FALSE.
+
+=Record::delete()= deletes all fields that match a predicate function (see above).
+
+If a record contains other records, i.e. if a record is a title or local record, =Record::delete()=,
+=Record::select()=, and =Record::getFields()= operate on all fields of the record, including the
+fields of the contained records.
+
+**** Appending fields to a record
+
+Append fields to an existing record is not as straightforward as selecting or deleting fields. Each
+record class has its own restrictions when it comes to appending a field to it via the
+=Record::append()= function:
+
+- you can only append fields with a level of 0 to title and authority records
+- you can append fields with a level of 1 to local records
+- you can only append fields with a level of 2 to copy records; as an additional restriction the
+  occurrence value of the field must be equal to the item number of the copy record
+
+#+CAPTION: Allowed field levels per record class
+| Record class    | Allowed field level in append() |
+|-----------------+---------------------------------|
+| TitleRecord     | Level 0                         |
+| AuthorityRecord | Level 0                         |
+| LocalRecord     | Level 1                         |
+| CopyRecord      | Level 2                         |
+
+The attempt to add a field with a different level then the allowed level results in an
+=InvalidArgumentException= to be thrown.
+
+* Development
+
+If you want to patch or enhance this component, you will need to create a suitable development
+environment. The easiest way to do that is to install phix4componentdev:
+
+#+BEGIN_EXAMPLE
+apt-get install php5-xdebug
+apt-get install php5-imagick
+pear channel-discover pear.phix-project.org
+pear -D auto_discover=1 install -Ba phix/phix4componentdev
+#+END_EXAMPLE
+
+You can then clone the Git repository:
+
+#+BEGIN_EXAMPLE
+git clone git://gitorious.org/php-pica/picarecord.git
+#+END_EXAMPLE
+
+Then, install a local copy of the package's dependencies to complete the development environment:
+
+#+BEGIN_EXAMPLE
+phing build-vender
+#+END_EXAMPLE
+
+To make life easier for you, common tasks (such as running unit tests, generating code review
+analytics, and creating the PEAR package) have been automated using [[http://phing.info][Phing]]. You'll find the
+automated steps inside the build.xml file that ships with the component.
+
+Run the command 'phing' in the component's top-level folder to see the full list of available
+automated tasks.
+
+* Acknowledgments
+
+The [[http://phix-project.org][Phix project]] makes it easy to setup and maintain a package repository for a PEAR-installable
+package and integrates important tools such as [[http://phpunit.de][PHPUnit]], [[http://phing.info][Phing]], [[http://pear.php.net][PEAR]], and [[http://pirum.sensiolabs.org/][Pirum]]. Large parts of this
+package would not have been possible without studying the source of [[http://search.cpan.org/dist/PICA-Record/][Pica::Record]], an open source
+Perl library for handling Pica+ records by Jakob Voß, and the practical knowledge of our library's
+catalogers.
+
+* Footnotes
+
+[1] E.g. a title record may contain zero or more fields with tag =101@= and occurrence =00=; fields with this
+shorthand indicate the start of a local record.
