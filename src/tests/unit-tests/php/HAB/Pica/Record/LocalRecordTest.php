@@ -92,6 +92,15 @@ class LocalRecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertFalse($r->isEmpty());
   }
 
+  public function testGetMaximumOccurrenceOf () {
+    $r = new LocalRecord();
+    $this->assertNull($r->getMaximumOccurrenceOf('144Z'));
+    $r->append(new Field('144Z', 0));
+    $this->assertEquals(0, $r->getMaximumOccurrenceOf('144Z'));
+    $r->append(new Field('144Z', 10));
+    $this->assertEquals(10, $r->getMaximumOccurrenceOf('144Z'));
+  }
+
   ///
 
   /**
@@ -128,5 +137,13 @@ class LocalRecordTest extends \PHPUnit_FrameWork_TestCase {
   public function testAppendThrowsExceptionOnInvalidLevel () {
     $r = new LocalRecord();
     $r->append(new Field('003@', 0));
+  }
+
+  /**
+   * @expectedException \InvalidArgumentException
+   */
+  public function testGetMaximumOccurrenceOfThrowsExceptionOnInvalidFieldTag () {
+    $r = new LocalRecord();
+    $r->getMaximumOccurrenceOf('@@@@');
   }
 }

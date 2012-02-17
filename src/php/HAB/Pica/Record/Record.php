@@ -165,6 +165,28 @@ abstract class Record {
   }
 
   /**
+   * Return the maximum occurrence value of a field.
+   *
+   * @throws \InvalidArgumentException Invalid field tag
+   * @param  string $tag Field tag
+   * @return int|null Maximum occurrence of field or NULL if field does not
+   *         exist
+   */
+  public function getMaximumOccurrenceOf ($tag) {
+    if (!preg_match(Field::TAG_RE, $tag)) {
+      throw new \InvalidArgumentException("Invalid field tag: {$tag}");
+    }
+    return array_reduce($this->getFields($tag),
+                        function ($maxOccurrence, Field $field) {
+                          if ($field->getOccurrence() > $maxOccurrence || $maxOccurrence === null) {
+                            return $field->getOccurrence();
+                          } else {
+                            return $maxOccurrence;
+                          }
+                        }, null);
+  }
+
+  /**
    * Return TRUE if the record is empty.
    *
    * A record is empty if it contains no fields.
