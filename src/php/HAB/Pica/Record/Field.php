@@ -161,7 +161,7 @@ class Field {
    *
    * Replaces the subfield list with subfields in argument.
    *
-   * @param  array $subfield Subfields
+   * @param  array $subfields Subfields
    * @return void
    */
   public function setSubfields (array $subfields) {
@@ -178,7 +178,7 @@ class Field {
    * @param  \HAB\Pica\Record\Subfield $subfield Subfield to add
    * @return void
    */
-  public function addSubfield (Subfield $subfield) {
+  public function addSubfield (\HAB\Pica\Record\Subfield $subfield) {
     if (in_array($subfield, $this->getSubfields(), true)) {
       throw new \InvalidArgumentException("Cannot add subfield: Subfield already part of the subfield list");
     }
@@ -192,7 +192,7 @@ class Field {
    * @param  \HAB\Pica\Record\Subfield $subfield Subfield to delete
    * @return void
    */
-  public function removeSubfield (Subfield $subfield) {
+  public function removeSubfield (\HAB\Pica\Record\Subfield $subfield) {
     $index = array_search($subfield, $this->_subfields, true);
     if ($index === false) {
       throw new \InvalidArgumentException("Cannot remove subfield: Subfield not part of the subfield list");

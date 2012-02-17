@@ -134,7 +134,7 @@ abstract class NestedRecord extends Record {
    * @param  \HAB\Pica\Record\Record $b Second record
    * @return integer Comparism value
    */
-  abstract protected function compareRecords (Record $a, Record $b);
+  abstract protected function compareRecords (\HAB\Pica\Record\Record $a, \HAB\Pica\Record\Record $b);
 
   /**
    * Add a record as a contained record.
@@ -143,7 +143,7 @@ abstract class NestedRecord extends Record {
    * @param  \HAB\Pica\Record\Record $record Record to add
    * @return void
    */
-  protected function addRecord (Record $record) {
+  protected function addRecord (\HAB\Pica\Record\Record $record) {
     if (in_array($record, $this->_records, true)) {
       throw new \InvalidArgumentException("{$this} already contains {$record}");
     }
@@ -157,7 +157,7 @@ abstract class NestedRecord extends Record {
    * @param  \HAB\Pica\Record\Record $record Record to remove
    * @return void
    */
-  protected function removeRecord (Record $record) {
+  protected function removeRecord (\HAB\Pica\Record\Record $record) {
     $index = array_search($record, $this->_records, true);
     if ($index === false) {
       throw new \InvalidArgumentException("{$this} does not contain {$record}");

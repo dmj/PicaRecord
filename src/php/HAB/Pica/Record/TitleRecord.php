@@ -45,9 +45,10 @@ class TitleRecord extends NestedRecord {
    *
    * @throws \InvalidArgumentException Field level invalid
    * @throws \InvalidArgumentException Field already in record
+   * @param  \HAB\Pica\Record\Field $field Field to append
    * @return void
    */
-  public function append (Field $field) {
+  public function append (\HAB\Pica\Record\Field $field) {
     if ($field->getLevel() !== 0) {
       throw new \InvalidArgumentException("Invalid field level: {$field->getLevel()}");
     }
@@ -99,7 +100,7 @@ class TitleRecord extends NestedRecord {
    * @param  \HAB\Pica\Record\LocalRecord $record Local record
    * @return void
    */
-  public function addLocalRecord (LocalRecord $record) {
+  public function addLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
     $this->addRecord($record);
   }
 
@@ -110,7 +111,7 @@ class TitleRecord extends NestedRecord {
    * @param  \HAB\Pica\Record\LocalRecord $record Local record to remove
    * @return void
    */
-  public function removeLocalRecord (LocalRecord $record) {
+  public function removeLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
     $this->removeRecord($record);
   }
 
@@ -187,7 +188,7 @@ class TitleRecord extends NestedRecord {
    * @param  \HAB\Pica\Record\Record $b Second record
    * @return Comparism value
    */
-  protected function compareRecords (Record $a, Record $b) {
+  protected function compareRecords (\HAB\Pica\Record\Record $a, \HAB\Pica\Record\Record $b) {
     return $a->getILN() - $b->getILN();
   }
 }

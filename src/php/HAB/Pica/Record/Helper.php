@@ -106,7 +106,7 @@ abstract class Helper {
    * @todo   Make FALSE and TRUE self-evaluating, maybe
    *
    * @param  array $sequence Sequence
-   * @param  callback $predice Predicate
+   * @param  callback $predicate Predicate
    * @return boolean TRUE if every element fullfills predicate
    */
   public static function every (array $sequence, $predicate) {

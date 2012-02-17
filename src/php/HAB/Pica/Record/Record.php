@@ -90,7 +90,7 @@ abstract class Record {
   /**
    * Constructor.
    *
-   * @param  array $field Initial set of fields
+   * @param  array $fields Initial set of fields
    * @return void
    */
   public function __construct (array $fields = array()) {
@@ -125,7 +125,7 @@ abstract class Record {
    * @param  \HAB\Pica\Record\Field $field Field to append
    * @return void
    */
-  public function append (Field $field) {
+  public function append (\HAB\Pica\Record\Field $field) {
     if (in_array($field, $this->_fields, true)) {
       throw new \InvalidArgumentException("{$this} already contains {$field}");
     }

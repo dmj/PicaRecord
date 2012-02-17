@@ -45,6 +45,7 @@ class LocalRecord extends NestedRecord {
    *
    * @throws \InvalidArgumentException Field level invalid
    * @throws \InvalidArgumentException Field already in record
+   * @param  \HAB\Pica\Record\Field $field Field to add
    * @return void
    */
   public function append (Field $field) {
@@ -60,8 +61,9 @@ class LocalRecord extends NestedRecord {
    * @throws \InvalidArgumentException Record already contains the copy record
    * @throws \InvalidArgumentException Record already contains a copy record with the same item number
    * @param  \HAB\Pica\Record\CopyRecord $record Copy record to add
+   * @return void
    */
-  public function addCopyRecord (CopyRecord $record) {
+  public function addCopyRecord (\HAB\Pica\Record\CopyRecord $record) {
     if ($this->getCopyRecordByItemNumber($record->getItemNumber())) {
       throw new \InvalidArgumentException("Cannot add copy record: Copy record with item number {$record->getItemNumber()} already present");
     }
@@ -72,9 +74,10 @@ class LocalRecord extends NestedRecord {
    * Remove a copy record.
    *
    * @throws \HAB\Pica\Record\Exception Record does not contain the specified copy record
+   * @param  \HAB\Pica\Record\CopyRecord $record Record to remove
    * @return void
    */
-  public function removeCopyRecord (CopyRecord $record) {
+  public function removeCopyRecord (\HAB\Pica\Record\CopyRecord $record) {
     $this->removeRecord($record);
   }
 
@@ -130,7 +133,7 @@ class LocalRecord extends NestedRecord {
    * @param  \HAB\Pica\Record\Record $b Second copy record
    * @return integer Comparism value
    */
-  protected function compareRecords (Record $a, Record $b) {
+  protected function compareRecords (\HAB\Pica\Record\Record $a, \HAB\Pica\Record\Record $b) {
     return $a->getItemNumber() - $b->getItemNumber();
   }
 }

@@ -56,7 +56,7 @@ class CopyRecord extends Record {
    * @param  \HAB\Pica\Record\Field $field Field to append
    * @return void
    */
-  public function append (Field $field) {
+  public function append (\HAB\Pica\Record\Field $field) {
     if ($field->getLevel() !== 2) {
       throw new \InvalidArgumentException("Invalid field level: {$field->getLevel()}");
     }
