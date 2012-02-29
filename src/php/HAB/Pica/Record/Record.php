@@ -206,7 +206,7 @@ abstract class Record {
    * @return boolean TRUE if the record is valid
    */
   public function isValid () {
-    return !$this->isEmpty() && !Helper::any($this->getFields(), function (Field $field) { return $field->isEmpty(); });
+    return !$this->isEmpty() && !Helper::some($this->getFields(), function (Field $field) { return $field->isEmpty(); });
   }
 
   /**

@@ -91,7 +91,7 @@ abstract class Helper {
    * @param  callback $predicate Predicate
    * @return boolean TRUE if at least one element matches predicate
    */
-  public static function any (array $sequence, $predicate) {
+  public static function some (array $sequence, $predicate) {
     foreach ($sequence as $element) {
       if (call_user_func($predicate, $element)) {
         return true;
