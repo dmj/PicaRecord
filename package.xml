@@ -35,7 +35,7 @@
     The PicaRecord package does not provide the means to read or write
     Pica+ records. In order to do so you need to install the packages
     PicaReader and PicaWriter that are available via this PEAR
-    channel.
+    channel, too.
   </notes>
   <contents>
     <dir baseinstalldir="/" name="/">
@@ -60,6 +60,23 @@
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <version>
+	<release>0.3.0</release>
+	<api>0.3</api>
+      </version>
+      <stability>
+	<release>stable</release>
+	<api>stable</api>
+      </stability>
+      <date>2012-03-05</date>
+      <license>GNU General Public License v3</license>
+      <notes>
+	* PicaRecord is now E_STRICT compliant
+	* add Record::getFirstMatchingField(), return first field matching a selector
+	* add Field::getNthSubfield(), return the nth subfield with a specified code
+      </notes>
+    </release>
     <release>
       <version>
 	<release>0.2.0</release>
