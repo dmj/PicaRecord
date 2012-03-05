@@ -120,6 +120,20 @@ class FieldTest extends \PHPUnit_FrameWork_TestCase {
     return $f;
   }
 
+  public function testGetNthSubfield () {
+    $f = new Field('003@', 0, array(new Subfield('a', 'first a'),
+                                    new Subfield('b', 'first b'),
+                                    new Subfield('a', 'second a')));
+    $s = $f->getNthSubfield('a', 0);
+    $this->assertInstanceOf('HAB\Pica\Record\Subfield', $s);
+    $this->assertEquals('first a', $s->getValue());
+    $s = $f->getNthSubfield('a', 1);
+    $this->assertInstanceOf('HAB\Pica\Record\Subfield', $s);
+    $this->assertEquals('second a', $s->getValue());   
+    $s = $f->getNthSubfield('a', 2);
+    $this->assertNull($s);
+  }
+
   /**
    * @depends testSetSubfields
    */
@@ -133,9 +147,12 @@ class FieldTest extends \PHPUnit_FrameWork_TestCase {
    */
   public function testGetSubfieldsWithCode (Field $f) {
     $this->assertEquals(5, count($f->getSubfields('x', 'x', 'x', 'x', 'x')));
-    $this->assertEquals('first d', reset($f->getSubfields('d')));
-    $this->assertEquals('first a', reset($f->getSubfields('a')));
-    $this->assertEquals('second a', end($f->getSubfields('a', 'd', 'a')));
+    $s = $f->getSubfields('d');
+    $this->assertEquals('first d', reset($s));
+    $s = $f->getSubfields('a');
+    $this->assertEquals('first a', reset($s));
+    $s = $f->getSubfields('a', 'd', 'a');
+    $this->assertEquals('second a', end($s));;
     return $f;
   }
 
@@ -147,7 +164,7 @@ class FieldTest extends \PHPUnit_FrameWork_TestCase {
     $f->addSubfield($s);
     $c = clone($f);
     $this->assertNotSame($c, $f);
-    $this->assertNotSame($s, reset($c->getSubfields('a')));
+    $this->assertNotSame($s, $c->getNthSubfield('a', 0));
   }
 
   ///

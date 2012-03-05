@@ -237,6 +237,27 @@ class Field {
   }
 
   /**
+   * Return the nth occurrence of a subfield with specified code.
+   *
+   * @param  string $code Subfield code
+   * @param  integer $n Zero-based subfield index
+   * @return \HAB\Pica\record\Subfield|null The requested subfield or NULL if
+   *         none exists
+   */
+  public function getNthSubfield ($code, $n) {
+    $count = 0;
+    foreach ($this->getSubfields() as $subfield) {
+      if ($subfield->getCode() == $code) {
+        if ($count == $n) {
+          return $subfield;
+        }
+        $count++;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Return the field tag.
    *
    * @return string Field tag
