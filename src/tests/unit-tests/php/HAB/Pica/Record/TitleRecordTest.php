@@ -27,7 +27,7 @@
 namespace HAB\Pica\Record;
 
 class TitleRecordTest extends \PHPUnit_FrameWork_TestCase {
-  
+
   public function testAppend () {
     $r = new TitleRecord();
     $r->append(new Field('003@', 0));
@@ -47,7 +47,8 @@ class TitleRecordTest extends \PHPUnit_FrameWork_TestCase {
    * @depends testAddLocalRecord
    */
   public function testRemoveLocalRecord (TitleRecord $r) {
-    $l = end($r->getLocalRecords());
+    $l = $r->getLocalRecords();
+    $l = end($l);
     $r->removeLocalRecord($l);
     $this->assertEquals(0, count($r->getLocalRecords()));
   }
@@ -72,7 +73,7 @@ class TitleRecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertEquals(1, count($r->getLocalRecords()));
     $fields []= new Field('101@', 0, array(new Subfield('a', 2)));
     $r->setFields($fields);
-    $this->assertEquals(2, count($r->getLocalRecords()));    
+    $this->assertEquals(2, count($r->getLocalRecords()));
   }
 
   public function testGetLocalRecordByILN () {

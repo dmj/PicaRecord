@@ -111,9 +111,9 @@ class LocalRecord extends NestedRecord {
    * @return integer|null ILN of the local record or NULL if none set
    */
   public function getILN () {
-    $ilnField = reset($this->getFields('101@'));
+    $ilnField = $this->getFirstMatchingField('101@/00');
     if ($ilnField) {
-      $ilnSubfield = reset($ilnField->getSubfields('a'));
+      $ilnSubfield = $ilnField->getNthSubfield('a', 0);
       if ($ilnSubfield) {
         return $ilnSubfield->getValue();
       }

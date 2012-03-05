@@ -59,9 +59,9 @@ class AuthorityRecord extends Record {
    * @return string|null Pica production number or NULL if none exists
    */
   public function getPPN () {
-    $ppnField = reset($this->getFields('003@/00'));
+    $ppnField = $this->getFirstMatchingField('003@/00');
     if ($ppnField) {
-      $ppnSubfield = reset($ppnField->getSubfields('0'));
+      $ppnSubfield = $ppnField->getNthSubfield('0', 0);
       if ($ppnSubfield) {
         return $ppnSubfield->getValue();
       }
@@ -78,9 +78,9 @@ class AuthorityRecord extends Record {
    * @return void
    */
   public function setPPN ($ppn) {
-    $ppnField = reset($this->getFields('003@/00'));
+    $ppnField = $this->getFirstMatchingField('003@/00');
     if ($ppnField) {
-      $ppnSubfield = reset($ppnField->getSubfields('0'));
+      $ppnSubfield = $ppnField->getNthSubfield('0', 0);
       if ($ppnSubfield) {
         $ppnSubfield->setValue($ppn);
       } else {
@@ -116,7 +116,7 @@ class AuthorityRecord extends Record {
   protected function checkPPN () {
     $ppnField = $this->getFields('003@/00');
     if (count($ppnField) === 1) {
-      $ppnSubfield = reset(reset($ppnField)->getSubfields('0'));
+      $ppnSubfield = reset($ppnField)->getNthSubfield('0', 0);
       if ($ppnSubfield) {
         return true;
       }
@@ -133,7 +133,7 @@ class AuthorityRecord extends Record {
   protected function checkType () {
     $typeField = $this->getFields('002@/00');
     if (count($typeField) === 1) {
-      $typeSubfield = reset(reset($typeField)->getSubfields('0'));
+      $typeSubfield = reset($typeField)->getNthSubfield('0', 0);
       if ($typeSubfield) {
         $typeCode = $typeSubfield->getValue();
         if ($typeCode === 'T') {

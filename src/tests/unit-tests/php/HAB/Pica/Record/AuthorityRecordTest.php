@@ -85,7 +85,8 @@ class AuthorityRecordTest extends \PHPUnit_FrameWork_TestCase {
     $r->append($f);
     $c = clone($r);
     $this->assertNotSame($r, $c);
-    $this->assertNotSame($f, reset($c->getFields()));
+    $fields = $c->getFields();
+    $this->assertNotSame($f, reset($fields));
   }
 
   public function testIsInvalidEmptyField () {
@@ -118,8 +119,9 @@ class AuthorityRecordTest extends \PHPUnit_FrameWork_TestCase {
     $r = new AuthorityRecord(array(new Field('003@', 99, array(new Subfield('0', 'valid'))),
                                    new Field('003@', 0, array(new Subfield('0', 'valid')))));
     $r->sort();
-    $this->assertEquals('003@/00', reset($r->getFields('003@'))->getShorthand());
-    $this->assertEquals('003@/99', end($r->getFields('003@'))->getShorthand());
+    $fields = $r->getFields('003@');
+    $this->assertEquals('003@/00', reset($fields)->getShorthand());
+    $this->assertEquals('003@/99', end($fields)->getShorthand());
   }
 
   ///

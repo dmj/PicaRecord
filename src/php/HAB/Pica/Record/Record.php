@@ -61,7 +61,7 @@ abstract class Record {
     $typePredicate = Field::match('002@/00');
     foreach ($fields as $field) {
       if ($typePredicate($field)) {
-        $typeSubfield = reset($field->getSubfields('0'));
+        $typeSubfield = $field->getNthSubfield('0', 0);
         if ($typeSubfield) {
           $type = $typeSubfield->getValue();
           break;

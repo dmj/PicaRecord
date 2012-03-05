@@ -55,9 +55,11 @@ class LocalRecordTest extends \PHPUnit_FrameWork_TestCase {
     $b = new CopyRecord(array(new Field('200@', 99)));
     $r->addCopyRecord($b);
     $r->addCopyRecord($a);
-    $this->assertSame($b, reset($r->getCopyRecords()));
+    $c = $r->getCopyRecords();
+    $this->assertSame($b, reset($c));
     $r->sort();
-    $this->assertSame($a, reset($r->getCopyRecords()));
+    $c = $r->getCopyRecords();
+    $this->assertSame($a, reset($c));
   }
 
   public function testGetILN () {

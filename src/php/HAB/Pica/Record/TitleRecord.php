@@ -76,7 +76,8 @@ class TitleRecord extends NestedRecord {
           $localRecord = new LocalRecord(array($field));
           $this->addLocalRecord($localRecord);
         } else {
-          $localRecord = end($this->getLocalRecords());
+          $records = $this->getLocalRecords();
+          $localRecord = end($records);
           if ($level === 1) {
             $localRecord->append($field);
           } else {
@@ -145,9 +146,9 @@ class TitleRecord extends NestedRecord {
    * @return string|null Pica production number or NULL if none exists
    */
   public function getPPN () {
-    $ppnField = reset($this->getFields('003@/00'));
+    $ppnField = $this->getFirstMatchingField('003@/00');
     if ($ppnField) {
-      $ppnSubfield = reset($ppnField->getSubfields('0'));
+      $ppnSubfield = $ppnField->getNthSubfield('0', 0);
       if ($ppnSubfield) {
         return $ppnSubfield->getValue();
       }
@@ -164,9 +165,9 @@ class TitleRecord extends NestedRecord {
    * @return void
    */
   public function setPPN ($ppn) {
-    $ppnField = reset($this->getFields('003@/00'));
+    $ppnField = $this->getFirstMatchingField('003@/00');
     if ($ppnField) {
-      $ppnSubfield = reset($ppnField->getSubfields('0'));
+      $ppnSubfield = $ppnField->getNthSubfield('0', 0);
       if ($ppnSubfield) {
         $ppnSubfield->setValue($ppn);
       } else {

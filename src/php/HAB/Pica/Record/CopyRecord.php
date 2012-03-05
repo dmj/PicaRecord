@@ -46,7 +46,7 @@ class CopyRecord extends Record {
   /**
    * Append a field to the copy record.
    *
-   * You can only append field of level 2 to a copy record. 
+   * You can only append field of level 2 to a copy record.
    *
    * @see Record::append()
    *
@@ -94,9 +94,9 @@ class CopyRecord extends Record {
    * @return string Exemplar production number
    */
   public function getEPN () {
-    $epnField = reset($this->getFields('203@'));
+    $epnField = $this->getFirstMatchingField('203@');
     if ($epnField) {
-      $epnSubfield = reset($epnField->getSubfields('0'));
+      $epnSubfield = $epnField->getNthSubfield('0', 0);
       if ($epnSubfield) {
         return $epnSubfield->getValue();
       }
@@ -113,9 +113,9 @@ class CopyRecord extends Record {
    * @return void
    */
   public function setEPN ($epn) {
-    $epnField = reset($this->getFields('203@'));
+    $epnField = $this->getFirstMatchingField('203@');
     if ($epnField) {
-      $epnSubfield = reset($epnField->getSubfields('0'));
+      $epnSubfield = $epnField->getNthSubfield('0', 0);
       if ($epnSubfield) {
         $epnSubfield->setValue($epn);
       } else {
