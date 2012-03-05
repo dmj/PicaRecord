@@ -229,6 +229,24 @@ abstract class Record {
     }
   }
 
+  /**
+   * Return the first field that matches a selector.
+   *
+   * @see \HAB\Pica\Record\getFields()
+   *
+   * @param  string $selector Body of regular expression
+   * @return \HAB\Pica\Record\Field|null The first matching field or NULL if
+   *         no match
+   */
+  public function getFirstMatchingField ($selector) {
+    $fields = $this->getFields($selector);
+    if (empty($fields)) {
+      return null;
+    } else {
+      return reset($fields);
+    }
+  }
+
  /**
    * Finalize the clone() operation.
    *

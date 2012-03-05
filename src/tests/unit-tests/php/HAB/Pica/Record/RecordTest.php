@@ -38,6 +38,13 @@ class RecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertInstanceOf('HAB\Pica\Record\AuthorityRecord', $record);
   }
 
+  public function testGetFirstMatchingField () {
+    $record = new AuthorityRecord(array(new Field('001@', 0),
+                                        new Field('001@', 1)));
+    $this->assertNull($record->getFirstMatchingField('002@/00'));
+    $this->assertInstanceOf('HAB\Pica\Record\Field', $record->getFirstMatchingField('001@'));
+  }
+
   ///
 
   /**
