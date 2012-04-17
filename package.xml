@@ -11,8 +11,7 @@
   <channel>${project.channel}</channel>
   <summary>Object oriented interface to Pica+ records</summary>
   <description>
-    PicaRecord provides an object oriented interface to Pica+ records,
-    fields, and subfields.
+    PicaRecord provides an object oriented interface to Pica+ records, fields, and subfields.
   </description>
   <lead>
     <name>David Maus</name>
@@ -32,10 +31,7 @@
   </stability>
   <license>GNU General Public License v3</license>
   <notes>
-    The PicaRecord package does not provide the means to read or write
-    Pica+ records. In order to do so you need to install the packages
-    PicaReader and PicaWriter that are available via this PEAR
-    channel, too.
+    The PicaRecord package does not provide the means to read or write Pica+ records. In order to do so you need to install the packages PicaReader and PicaWriter that are available via this PEAR channel, too.
   </notes>
   <contents>
     <dir baseinstalldir="/" name="/">
@@ -60,6 +56,21 @@
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <version>
+	<release>0.3.1</release>
+	<api>0.3</api>
+      </version>
+      <stability>
+	<release>stable</release>
+	<api>stable</api>
+      </stability>
+      <date>2012-04-17</date>
+      <license>GNU General Public License v3</license>
+      <notes>
+	* fix getFields() with selector in NestedRecord
+      </notes>
+    </release>
     <release>
       <version>
 	<release>0.3.0</release>
