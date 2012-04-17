@@ -109,8 +109,6 @@ abstract class NestedRecord extends Record {
   /**
    * Return fields of the record.
    *
-   * The getFields() is propagated down to all contained records.
-   *
    * @see \HAB\Pica\Record\Record::getFields()
    *
    * @param  string $selector Body of regular expression
@@ -120,7 +118,7 @@ abstract class NestedRecord extends Record {
     if ($selector === null) {
       return array_merge($this->_fields, Helper::flatten(Helper::mapMethod($this->_records, 'getFields')));
     } else {
-      return array_merge($this->select(Field::match($selector)), Helper::flatten(Helper::mapMethod($this->_records, 'getFields', array($selector))));
+      return $this->select(Field::match($selector));
     }
   }
 
