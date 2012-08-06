@@ -122,6 +122,16 @@ class LocalRecord extends NestedRecord {
   }
 
   /**
+   * Return true if local record contains the copy record.
+   *
+   * @param  \HAB\Pica\Record\CopyRecord $record Copy record
+   * @return boolean
+   */
+  public function containsCopyRecord (\HAB\Pica\Record\CopyRecord $record) {
+    return $this->containsRecord($record);
+  }
+
+  /**
    * Compare two copy records.
    *
    * Copyrecords are compared by their item number.

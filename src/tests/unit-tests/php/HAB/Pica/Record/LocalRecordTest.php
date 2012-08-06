@@ -103,6 +103,14 @@ class LocalRecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertEquals(10, $r->getMaximumOccurrenceOf('144Z'));
   }
 
+  public function testContainsCopyRecord () {
+    $r = new LocalRecord();
+    $c = new CopyRecord();
+    $this->assertFalse($r->containsCopyRecord($c));
+    $r->addCopyRecord($c);
+    $this->assertTrue($r->containsCopyRecord($c));
+  }
+
   ///
 
   /**

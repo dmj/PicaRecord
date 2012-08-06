@@ -179,6 +179,16 @@ class TitleRecord extends NestedRecord {
   }
 
   /**
+   * Return true if title record contains the local record.
+   *
+   * @param  \HAB\Pica\Record\LocalRecord $record Local record
+   * @return boolean
+   */
+  public function containsLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
+      return $this->containsRecord($record);
+  }
+
+  /**
    * Compare two local records.
    *
    * @see \HAB\Pica\Record\NestedRecord::compareRecords()
@@ -192,4 +202,5 @@ class TitleRecord extends NestedRecord {
   protected function compareRecords (\HAB\Pica\Record\Record $a, \HAB\Pica\Record\Record $b) {
     return $a->getILN() - $b->getILN();
   }
+
 }

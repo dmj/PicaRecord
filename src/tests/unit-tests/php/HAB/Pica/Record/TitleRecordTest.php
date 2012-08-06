@@ -101,4 +101,12 @@ class TitleRecordTest extends \PHPUnit_FrameWork_TestCase {
     $r->setPPN('something else');
     $this->assertEquals('something else', $r->getPPN());
   }
+
+  public function testContainsLocalRecord () {
+      $r = new TitleRecord();
+      $l = new LocalRecord();
+      $this->assertFalse($r->containsLocalRecord($l));
+      $r->addLocalRecord($l);
+      $this->assertTrue($r->containsLocalRecord($l));
+  }
 }
