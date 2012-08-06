@@ -42,6 +42,17 @@ class CopyRecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertEquals('epn', $r->getEPN());
   }
 
+  public function testLocalRecordReference () {
+    $l = new LocalRecord();
+    $c = new CopyRecord();
+    $this->assertNull($c->getLocalRecord());
+    $l->addCopyRecord($c);
+    $this->assertSame($l, $c->getLocalRecord());
+    $c->unsetLocalRecord();
+    $this->assertNull($c->getLocalRecord());
+    $this->assertFalse($l->containsCopyRecord($c));
+  }
+
   ///
 
   /**

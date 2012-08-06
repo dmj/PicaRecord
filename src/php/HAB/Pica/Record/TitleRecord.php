@@ -103,6 +103,7 @@ class TitleRecord extends NestedRecord {
    */
   public function addLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
     $this->addRecord($record);
+    $record->setTitleRecord($this);
   }
 
   /**
@@ -114,6 +115,7 @@ class TitleRecord extends NestedRecord {
    */
   public function removeLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
     $this->removeRecord($record);
+    $record->unsetTitleRecord();
   }
 
   /**

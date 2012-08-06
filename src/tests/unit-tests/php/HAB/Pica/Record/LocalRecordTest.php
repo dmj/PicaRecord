@@ -111,6 +111,17 @@ class LocalRecordTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertTrue($r->containsCopyRecord($c));
   }
 
+  public function testTitleRecordReference () {
+    $t = new TitleRecord();
+    $l = new LocalRecord();
+    $this->assertNull($l->getTitleRecord());
+    $t->addLocalRecord($l);
+    $this->assertSame($t, $l->getTitleRecord());
+    $l->unsetTitleRecord();
+    $this->assertNull($l->getTitleRecord());
+    $this->assertFalse($t->containsLocalRecord($l));
+  }
+
   ///
 
   /**

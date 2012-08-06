@@ -125,4 +125,42 @@ class CopyRecord extends Record {
       $this->append(new Field('203@', $this->getItemNumber(), array(new Subfield('0', $epn))));
     }
   }
+
+  /**
+   * Set the containing local record.
+   *
+   * @param  \HAB\Pica\Record\LocalRecord $record Local record
+   * @return void
+   */
+  public function setLocalRecord (\HAB\Pica\Record\LocalRecord $record) {
+      $this->unsetLocalRecord();
+      if (!$record->containsCopyRecord($this)) {
+          $record->addCopyRecord($this);
+      }
+      $this->_parent = $record;
+  }
+
+  /**
+   * Unset the containing local record.
+   *
+   * @return void
+   */
+  public function unsetLocalRecord () {
+      if ($this->_parent) {
+          if ($this->_parent->containsCopyRecord($this)) {
+              $this->_parent->removeCopyRecord($this);
+          }
+          $this->_parent = null;
+      }
+  }
+
+  /**
+   * Return the containing local record.
+   *
+   * @return \HAB\Pica\Record\LocalRecord|null
+   */
+  public function getLocalRecord () {
+      return $this->_parent;
+  }
+
 }

@@ -68,6 +68,7 @@ class LocalRecord extends NestedRecord {
       throw new \InvalidArgumentException("Cannot add copy record: Copy record with item number {$record->getItemNumber()} already present");
     }
     $this->addRecord($record);
+    $record->setLocalRecord($this);
   }
 
   /**
@@ -79,6 +80,7 @@ class LocalRecord extends NestedRecord {
    */
   public function removeCopyRecord (\HAB\Pica\Record\CopyRecord $record) {
     $this->removeRecord($record);
+    $record->unsetLocalRecord();
   }
 
   /**
@@ -132,6 +134,43 @@ class LocalRecord extends NestedRecord {
   }
 
   /**
+   * Set the containing title record.
+   *
+   * @param  \HAB\Pica\Record\TitleRecord $record Title record
+   * @return void
+   */
+  public function setTitleRecord (\HAB\Pica\Record\TitleRecord $record) {
+      $this->unsetTitleRecord();
+      if (!$record->containsLocalRecord($this)) {
+          $record->addLocalRecord($this);
+      }
+      $this->_parent = $record;
+  }
+
+  /**
+   * Unset the containing title record.
+   *
+   * @return void
+   */
+  public function unsetTitleRecord () {
+      if ($this->_parent) {
+          if ($this->_parent->containsLocalRecord($this)) {
+              $this->_parent->removeLocalRecord($this);
+          }
+          $this->_parent = null;
+      }
+  }
+
+  /**
+   * Return the containing local record.
+   *
+   * @return \HAB\Pica\Record\TitleRecord|null
+   */
+  public function getTitleRecord () {
+      return $this->_parent;
+  }
+
+  /**
    * Compare two copy records.
    *
    * Copyrecords are compared by their item number.
@@ -146,4 +185,5 @@ class LocalRecord extends NestedRecord {
   protected function compareRecords (\HAB\Pica\Record\Record $a, \HAB\Pica\Record\Record $b) {
     return $a->getItemNumber() - $b->getItemNumber();
   }
+
 }
