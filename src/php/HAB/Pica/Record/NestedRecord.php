@@ -142,7 +142,7 @@ abstract class NestedRecord extends Record {
    * @return void
    */
   protected function addRecord (\HAB\Pica\Record\Record $record) {
-    if (in_array($record, $this->_records, true)) {
+    if ($this->containsRecord($record)) {
       throw new \InvalidArgumentException("{$this} already contains {$record}");
     }
     $this->_records []= $record;
@@ -161,6 +161,16 @@ abstract class NestedRecord extends Record {
       throw new \InvalidArgumentException("{$this} does not contain {$record}");
     }
     unset($this->_records[$index]);
+  }
+
+  /**
+   * Return true if this record contains the requested record.
+   *
+   * @param  \HAB\Pica\Record\Record Record to check
+   * @return boolean
+   */
+  protected function containsRecord (\HAB\Pica\Record\Record $record) {
+    return in_array($record, $this->_records, true);
   }
 
  /**
