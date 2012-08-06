@@ -88,6 +88,13 @@ abstract class Record {
   protected $_fields = array();
 
   /**
+   * The containing parent record, if any.
+   *
+   * @var \HAB\Pica\Record
+   */
+  protected $_parent;
+
+  /**
    * Constructor.
    *
    * @param  array $fields Initial set of fields
