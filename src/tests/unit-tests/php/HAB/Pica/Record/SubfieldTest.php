@@ -36,10 +36,6 @@ class SubfieldTest extends \PHPUnit_FrameWork_TestCase {
     $this->assertFalse(Subfield::isValidSubfieldCode("a\n"));
   }
 
-  public function testValidSubfieldValueSingleSpace () {
-    $this->assertTrue(Subfield::isValidSubfieldValue(' '));
-  }
-
   public function testFactory () {
     $s = Subfield::factory(array('code' => 'a', 'value' => 'valid'));
     $this->assertInstanceOf('HAB\Pica\Record\Subfield', $s);
@@ -86,13 +82,6 @@ class SubfieldTest extends \PHPUnit_FrameWork_TestCase {
   /**
    * @expectedException \InvalidArgumentException
    */
-  public function testConstructorThrowsExceptionOnInvalidValue () {
-    new Subfield('a', null);
-  }
-
-  /**
-   * @expectedException \InvalidArgumentException
-   */
   public function testFactoryThrowsExceptionOnMissingCodeIndex () {
     Subfield::factory(array('value' => 'valid'));
   }
@@ -102,14 +91,6 @@ class SubfieldTest extends \PHPUnit_FrameWork_TestCase {
    */
   public function testFactoryThrowsExceptionOnMissingValueIndex () {
     Subfield::factory(array('code' => 'a'));
-  }
-
-  /**
-   * @expectedException \InvalidArgumentException
-   */
-  public function testSetValueThrowsExceptionOnInvalidValue () {
-    $s = new Subfield('a', 'valid');
-    $s->setValue(null);
   }
 
 }

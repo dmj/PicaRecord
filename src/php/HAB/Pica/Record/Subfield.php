@@ -49,16 +49,6 @@ class Subfield {
   }
 
   /**
-   * Return TRUE if argument is a valid subfield value.
-   *
-   * @param  mixed $arg Variable to check
-   * @return boolean TRUE if argument is a valid subfield value
-   */
-  public static function isValidSubfieldValue ($arg) {
-    return $arg != '';
-  }
-
-  /**
    * Return a new subfield based on its array representation.
    *
    * The array representation of a subfield is an associative array with the
@@ -97,7 +87,7 @@ class Subfield {
   /**
    * Constructor.
    *
-   * @throws \InvalidArgumentException Invalid subfield code or value
+   * @throws \InvalidArgumentException Invalid subfield code
    * @param  string $code Subfield code
    * @param  string $value Subfield value
    * @return void
@@ -113,14 +103,10 @@ class Subfield {
   /**
    * Set the subfield value.
    *
-   * @throws \InvalidArgumentException Invalid subfield value
    * @param  string $value Subfield value
    * @return void
    */
   public function setValue ($value) {
-    if (!self::isValidSubfieldValue($value)) {
-      throw new \InvalidArgumentException("Invalid subfield value: {$value}");
-    }
     $this->_value = $value;
   }
 

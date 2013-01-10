@@ -58,6 +58,36 @@
   <changelog>
     <release>
       <version>
+	<release>0.4.0</release>
+	<api>0.4</api>
+      </version>
+      <stability>
+	<release>stable</release>
+	<api>stable</api>
+      </stability>
+      <date>2013-01-10</date>
+      <license>GNU General Public License v3</license>
+      <notes>
+	* allow empty subfield values (031N $6)
+      </notes>
+    </release>
+    <release>
+      <version>
+	<release>0.3.2</release>
+	<api>0.3</api>
+      </version>
+      <stability>
+	<release>stable</release>
+	<api>stable</api>
+      </stability>
+      <date>2013-01-10</date>
+      <license>GNU General Public License v3</license>
+      <notes>
+	* remove hard dependency to Autoloader
+      </notes>
+    </release>
+    <release>
+      <version>
 	<release>0.3.1</release>
 	<api>0.3</api>
       </version>
