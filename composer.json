@@ -1,5 +1,5 @@
 {
-    "name": "hab/pica-record",
+    "name": "hab/picarecord",
     "description": "Object oriented interface to Pica+ records, fields, and subfields",
     "type": "library",
     "license": "GPL-3.0+",
