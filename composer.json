@@ -12,5 +12,10 @@
     ],
     "support": {
 	"email": "maus@hab.de"
+    },
+    "autoload": {
+        "psr-0": {
+            "HAB\\Pica": "src/"
+        }
     }
 }

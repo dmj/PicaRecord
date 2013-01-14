@@ -26,6 +26,5 @@ require_once realpath(__DIR__ . '/../vendor/autoload.php');
 define('PHPUNIT_FIXTURES', realpath(__DIR__ . '/fixtures'));
 
 $loader = new Composer\Autoload\ClassLoader();
-$loader->add('HAB', realpath(__DIR__ . '/../src'));
 $loader->add('HAB', realpath(__DIR__ . '/src'));
 $loader->register();
