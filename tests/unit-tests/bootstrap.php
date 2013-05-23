@@ -21,7 +21,8 @@
  * @license   http://www.gnu.org/licenses/gpl.txt GNU General Public License v3
  */
 
-require_once realpath(__DIR__ . '/../vendor/autoload.php');
+$autoload = realpath(__DIR__ . '/../../vendor/autoload.php');
+require_once($autoload);
 
 define('PHPUNIT_FIXTURES', realpath(__DIR__ . '/fixtures'));
 

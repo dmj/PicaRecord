@@ -142,7 +142,7 @@ class FieldTest extends PHPUnit_FrameWork_TestCase
     /**
      * @depends testGetSubfields
      */
-    public function testGetSubfieldsWithCode (Field $f)
+    public function testGetSubfieldsCodes (Field $f)
     {
         $this->assertEquals(5, count($f->getSubfields('x', 'x', 'x', 'x', 'x')));
         $s = $f->getSubfields('d');
@@ -152,6 +152,18 @@ class FieldTest extends PHPUnit_FrameWork_TestCase
         $s = $f->getSubfields('a', 'd', 'a');
         $this->assertEquals('second a', end($s));;
         return $f;
+    }
+
+
+    public function testGetSubfieldsWithCode ()
+    {
+        $f = new Field('003@', 0);
+        $f->setSubfields(array(new Subfield('a', 'first a'),
+                               new Subfield('d', 'first d'),
+                               new Subfield('a', 'second a')));
+        $this->assertEquals(2, count($f->getSubfieldsWithCode('a')));
+        $this->assertEquals(1, count($f->getSubfieldsWithCode('d')));
+        $this->assertEquals(0, count($f->getSubfieldsWithCode('x')));
     }
 
     ///
