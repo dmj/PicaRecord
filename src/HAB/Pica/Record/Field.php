@@ -263,6 +263,17 @@ class Field
     }
 
     /**
+     * Return all subfields with the specified code.
+     *
+     * @param  string $code Subfield code
+     * @return array
+     */
+    public function getSubfieldsWithCode ($code)
+    {
+        return array_filter($this->_subfields, function (Subfield $s) use ($code) { return $s->getCode() == $code; });
+    }
+
+    /**
      * Return the field tag.
      *
      * @return string Field tag
