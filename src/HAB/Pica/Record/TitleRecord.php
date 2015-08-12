@@ -75,7 +75,13 @@ class TitleRecord extends NestedRecord
                     $this->addLocalRecord($localRecord);
                 } else {
                     $records = $this->getLocalRecords();
-                    $localRecord = end($records);
+                    // Handle malformed Pica record w/ missing local record field
+                    if (empty($records)) {
+                        $localRecord = new LocalRecord();
+                        $this->addLocalRecord($localRecord);
+                    } else {
+                        $localRecord = end($records);
+                    }
                     if ($level === 1) {
                         $localRecord->append($field);
                     } else {

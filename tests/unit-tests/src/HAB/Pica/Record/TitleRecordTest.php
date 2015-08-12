@@ -121,4 +121,14 @@ class TitleRecordTest extends PHPUnit_FrameWork_TestCase
         $r->addLocalRecord($l);
         $this->assertTrue($r->containsLocalRecord($l));
     }
+
+    public function testTitleRecordWithNoLocalRecordIndicator ()
+    {
+        $record = new TitleRecord();
+        $fields = array();
+        $fields []= new Field('003@', 0);
+        $fields []= new Field('200@', 0);
+        $record->setFields($fields);
+        $this->assertNotEmpty($record->getLocalRecords());
+    }
 }
