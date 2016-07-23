@@ -8,7 +8,7 @@ PicaRecord provides an object oriented interface to Pica+ records, fields, and s
 not provide the means to read or write Pica+ records. In order to do so you need to install the
 packages PicaReader and PicaWriter that are available as dedicated composer packages.
 
-PicaRecord is copyright (c) 2012-2015 by Herzog August Bibliothek Wolfenbüttel and released under the
+PicaRecord is copyright (c) 2012-2016 by Herzog August Bibliothek Wolfenbüttel and released under the
 terms of the GNU General Public License v3.
 
 * Installation
