@@ -133,6 +133,13 @@ class Field
     protected $_shorthand;
 
     /**
+     * Subfields.
+     *
+     * @var array
+     */
+    protected $_subfields;
+
+    /**
      * Constructor.
      *
      * @throws InvalidArgumentException Invalid field tag or occurrence
