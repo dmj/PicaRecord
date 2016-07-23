@@ -130,6 +130,17 @@ class FieldTest extends PHPUnit_FrameWork_TestCase
         $this->assertNull($s);
     }
 
+    public function testHasSubfield ()
+    {
+        $f = new Field('003@', 0, array(new Subfield('a', 'first a'),
+                                        new Subfield('b', 'first b'),
+                                        new Subfield('a', 'second a')));
+        $this->assertTrue($f->hasSubfield('a'));
+        $this->assertTrue($f->hasSubfield('a', 1));
+        $this->assertFalse($f->hasSubfield('a', 2));
+        $this->assertFalse($f->hasSubfield('c'));
+    }
+
     /**
      * @depends testSetSubfields
      */

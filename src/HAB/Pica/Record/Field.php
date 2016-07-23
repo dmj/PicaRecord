@@ -263,6 +263,21 @@ class Field
     }
 
     /**
+     * Return true if a subfield with given code exists.
+     *
+     * If optional argument $n return true if the field has subfield
+     * at the specified position.
+     *
+     * @param  string $code Subfield code
+     * @param  integer $n Optional zero-based subfield index
+     * @return boolean
+     */
+    public function hasSubfield ($code, $n = 0)
+    {
+        return (boolean)$this->getNthSubfield($code, $n);
+    }
+
+    /**
      * Return all subfields with the specified code.
      *
      * @param  string $code Subfield code
