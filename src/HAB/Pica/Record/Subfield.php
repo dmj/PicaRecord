@@ -23,7 +23,7 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012 - 2016 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
@@ -33,6 +33,12 @@ use InvalidArgumentException;
 
 class Subfield
 {
+    /**
+     * Regular expression matching a valid subfield code.
+     *
+     * @var string
+     */
+    public static $validSubfieldCodePattern = '/^[a-z0-9]$/Di';
 
     /**
      * Return true if argument is a valid subfield code.
@@ -42,7 +48,7 @@ class Subfield
      */
     public static function isValidSubfieldCode ($arg)
     {
-        return (bool)preg_match('/^[a-z0-9]$/Di', $arg);
+        return (bool)preg_match(self::$validSubfieldCodePattern, $arg);
     }
 
     /**
