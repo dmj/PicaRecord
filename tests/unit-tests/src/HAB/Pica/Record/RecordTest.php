@@ -50,6 +50,25 @@ class RecordTest extends PHPUnit_FrameWork_TestCase
         $this->assertInstanceOf('HAB\Pica\Record\Field', $record->getFirstMatchingField('001@'));
     }
 
+    public function testSerialization ()
+    {
+        $record = Record::factory(
+            array('fields' =>
+                  array(
+                      array('tag' => '002@',
+                            'occurrence' => 0,
+                            'subfields' => array(array('code' => '0', 'value' => 'T'))),
+                      array('tag' => '003@',
+                            'occurrence' => 0,
+                            'subfields' => array(array('code' => '0', 'value' => '123456789X')))
+                  )
+            )
+        );
+        $data = serialize($record);
+        $record = unserialize($data);
+        $this->assertCount(2, $record->getFields());
+    }
+
     ///
 
     /**
