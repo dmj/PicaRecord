@@ -38,7 +38,7 @@ class Subfield
      *
      * @var string
      */
-    public static $validSubfieldCodePattern = '/^[a-z0-9]$/Di';
+    public static $validSubfieldCodePattern = '/^[a-z0-9#]$/Di';
 
     /**
      * Return true if argument is a valid subfield code.
