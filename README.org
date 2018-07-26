@@ -2,6 +2,8 @@
 #+AUTHOR: David Maus
 #+EMAIL: maus@hab.de
 
+[![Build Status](https://travis-ci.org/dmj/PicaRecord.svg?branch=master)](https://travis-ci.org/dmj/PicaRecord)
+
 * About
 
 PicaRecord provides an object oriented interface to Pica+ records, fields, and subfields. It does
