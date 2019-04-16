@@ -20,15 +20,15 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class FieldTest extends PHPUnit_FrameWork_TestCase
+class FieldTest extends TestCase
 {
 
     public function testValidFieldOccurrenceCastNull () {
@@ -191,62 +191,48 @@ class FieldTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingTagIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Field::factory(array('occurrence' => 10, 'subfields' => array()));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingOccurrenceIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Field::factory(array('tag' => '003@', 'subfields' => array()));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingSubfieldIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Field::factory(array('tag' => '003@', 'occurrence' => 10));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testContructorThrowsExceptionOnInvalidTag ()
     {
+        $this->expectException('InvalidArgumentException');
         new Field('invalid', 0);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testConstructorThrowsExceptionOnInvalidOccurrence ()
     {
+        $this->expectException('InvalidArgumentException');
         new Field('003@', 1000);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAddSubfieldThrowsExceptionOnDuplicateSubfield ()
     {
+        $this->expectException('InvalidArgumentException');
         $f = new Field('003@', 0);
         $s = new Subfield('a', 'valid');
         $f->addSubfield($s);
         $f->addSubfield($s);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRemoveSubfieldThrowsExceptionOnNonExistentField ()
     {
+        $this->expectException('InvalidArgumentException');
         $f = new Field('003@', 0);
         $s = new Subfield('a', 'valid');
         $f->removeSubfield($s);

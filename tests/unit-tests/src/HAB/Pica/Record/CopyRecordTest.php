@@ -20,15 +20,15 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CopyRecordTest extends PHPUnit_FrameWork_TestCase {
+class CopyRecordTest extends TestCase {
 
     public function testGetEPN ()
     {
@@ -60,20 +60,16 @@ class CopyRecordTest extends PHPUnit_FrameWork_TestCase {
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAppendThrowsExceptionOnInvalidFieldLevel ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new CopyRecord();
         $r->append(new Field('003@', 0));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAppendThrowsExceptionOnNumberMismatch ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new CopyRecord();
         $r->append(new Field('201@', 0));
         $r->append(new Field('202@', 1));

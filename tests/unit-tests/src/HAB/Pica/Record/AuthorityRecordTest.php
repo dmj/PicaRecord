@@ -20,33 +20,33 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase 
+class AuthorityRecordTest extends TestCase
 {
 
     ///
 
-    public function testIsEmpty () 
+    public function testIsEmpty ()
     {
         $r = new AuthorityRecord();
         $this->assertTrue($r->isEmpty());
     }
 
-    public function testAppend () 
+    public function testAppend ()
     {
         $r = new AuthorityRecord();
         $r->append(new Field('000@', 0, array(new Subfield('0', 'valid'))));
         $this->assertFalse($r->isEmpty());
     }
 
-    public function testGetPPN () 
+    public function testGetPPN ()
     {
         $r = new AuthorityRecord();
         $this->assertNull($r->getPPN());
@@ -54,7 +54,7 @@ class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase
         $this->assertEquals('valid', $r->getPPN());
     }
 
-    public function testDelete () 
+    public function testDelete ()
     {
         $r = new AuthorityRecord();
         $r->append(new Field('003@', 0, array(new Subfield('0', 'valid'))));
@@ -65,7 +65,7 @@ class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    public function testSetPPN () 
+    public function testSetPPN ()
     {
         $r = new AuthorityRecord();
         $this->assertNull($r->getPPN());
@@ -76,7 +76,7 @@ class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase
         $this->assertEquals(1, count($r->getFields('003@/00')));
     }
 
-    public function testClone () 
+    public function testClone ()
     {
         $r = new AuthorityRecord();
         $f = new Field('003@', 0);
@@ -87,38 +87,38 @@ class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase
         $this->assertNotSame($f, reset($fields));
     }
 
-    public function testIsInvalidEmptyField () 
+    public function testIsInvalidEmptyField ()
     {
         $r = new AuthorityRecord(array(new Field('003@', 0)));
         $this->assertFalse($r->isValid());
     }
 
-    public function testIsInvalidMissingPPN () 
+    public function testIsInvalidMissingPPN ()
     {
         $r = new AuthorityRecord(array(new Field('002@', 0, array(new Subfield('0', 'T')))));
         $this->assertFalse($r->isValid());
     }
 
-    public function testIsInvalidMissingType () 
+    public function testIsInvalidMissingType ()
     {
         $r = new AuthorityRecord(array(new Field('003@', 0, array(new Subfield('0', 'something')))));
         $this->assertFalse($r->isValid());
     }
 
-    public function testIsInvalidWrongType () 
+    public function testIsInvalidWrongType ()
     {
         $r = new AuthorityRecord(array(new Field('002@', 0, array(new Subfield('0', 'A')))));
         $this->assertFalse($r->isValid());
     }
 
-    public function testIsValid () 
+    public function testIsValid ()
     {
         $r = new AuthorityRecord(array(new Field('002@', 0, array(new Subfield('0', 'T'))),
                                        new Field('003@', 0, array(new Subfield('0', 'valid')))));
         $this->assertTrue($r->isValid());
     }
 
-    public function testSort () 
+    public function testSort ()
     {
         $r = new AuthorityRecord(array(new Field('003@', 99, array(new Subfield('0', 'valid'))),
                                        new Field('003@', 0, array(new Subfield('0', 'valid')))));
@@ -130,22 +130,18 @@ class AuthorityRecordTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testAppendThrowsExceptionOnDuplicateField () 
+    public function testAppendThrowsExceptionOnDuplicateField ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new AuthorityRecord();
         $f = new Field('003@', 0);
         $r->append($f);
         $r->append($f);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testAppendThrowsExceptionOnInvalidLevel () 
+    public function testAppendThrowsExceptionOnInvalidLevel ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new AuthorityRecord();
         $r->append(new Field('101@', 0));
     }

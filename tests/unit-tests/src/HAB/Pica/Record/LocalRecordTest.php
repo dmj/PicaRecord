@@ -20,15 +20,15 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LocalRecordTest extends PHPUnit_FrameWork_TestCase
+class LocalRecordTest extends TestCase
 {
 
     public function testClone ()
@@ -132,51 +132,41 @@ class LocalRecordTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAddCopyRecordThrowsExceptionOnItemNumberCollision ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new LocalRecord();
         $r->addCopyRecord(new CopyRecord(array(new Field('200@', 11))));
         $r->addCopyRecord(new CopyRecord(array(new Field('200@', 11))));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAddCopyRecordThrowsExceptionOnDuplicateCopyRecord ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new LocalRecord();
         $c = new CopyRecord();
         $r->addCopyRecord($c);
         $r->addCopyRecord($c);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRemoveCopyRecordThrowsExceptionOnCopyRecordNotContainedInRecord ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new LocalRecord();
         $c = new CopyRecord();
         $r->removeCopyRecord($c);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAppendThrowsExceptionOnInvalidLevel ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new LocalRecord();
         $r->append(new Field('003@', 0));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testGetMaximumOccurrenceOfThrowsExceptionOnInvalidFieldTag ()
     {
+        $this->expectException('InvalidArgumentException');
         $r = new LocalRecord();
         $r->getMaximumOccurrenceOf('@@@@');
     }

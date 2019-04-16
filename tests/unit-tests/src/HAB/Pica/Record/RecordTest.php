@@ -20,15 +20,15 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class RecordTest extends PHPUnit_FrameWork_TestCase
+class RecordTest extends TestCase
 {
 
     public function testFactoryCreatesAuthorityRecord ()
@@ -71,27 +71,22 @@ class RecordTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
+
     public function testFactoryThrowsExceptionOnMissingFieldsIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Record::factory(array());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingTypeField ()
     {
+        $this->expectException('InvalidArgumentException');
         $record = Record::factory(array('fields' => array()));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingTypeSubfield ()
     {
+        $this->expectException('InvalidArgumentException');
         $record = Record::factory(array('fields' => array(
                                             array('tag' => '002@',
                                                   'occurrence' => 0,

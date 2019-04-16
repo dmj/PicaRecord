@@ -20,15 +20,15 @@
  *
  * @package   PicaRecord
  * @author    David Maus <maus@hab.de>
- * @copyright Copyright (c) 2012, 2013 by Herzog August Bibliothek Wolfenbüttel
+ * @copyright Copyright (c) 2012-2019 by Herzog August Bibliothek Wolfenbüttel
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License v3
  */
 
 namespace HAB\Pica\Record;
 
-use PHPUnit_FrameWork_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SubfieldTest extends PHPUnit_FrameWork_TestCase
+class SubfieldTest extends TestCase
 {
 
     public function testValidSubfieldCodeZero ()
@@ -70,27 +70,21 @@ class SubfieldTest extends PHPUnit_FrameWork_TestCase
 
     ///
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testConstructorThrowsExceptionOnInvalidCode ()
     {
+        $this->expectException('InvalidArgumentException');
         new Subfield(null, 'valid');
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingCodeIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Subfield::factory(array('value' => 'valid'));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFactoryThrowsExceptionOnMissingValueIndex ()
     {
+        $this->expectException('InvalidArgumentException');
         Subfield::factory(array('code' => 'a'));
     }
 
