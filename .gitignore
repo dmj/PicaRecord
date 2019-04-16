@@ -6,3 +6,4 @@ ChangeLog
 vendor
 review
 build
+.phpunit.result.cache
