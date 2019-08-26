@@ -183,7 +183,7 @@ class TitleRecord extends NestedRecord
             if ($ppnSubfield) {
                 $ppnSubfield->setValue($ppn);
             } else {
-                $ppnField->append(new Subfield('0', $ppn));
+                $ppnField->addSubfield(new Subfield('0', $ppn));
             }
         } else {
             $this->append(new Field('003@', 0, array(new Subfield('0', $ppn))));
