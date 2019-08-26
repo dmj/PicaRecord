@@ -208,11 +208,11 @@ class TitleRecord extends NestedRecord
      *
      * Local records are compared by their ILN.
      *
-     * @param  LocalRecord $a First record
-     * @param  LocalRecord $b Second record
+     * @param  Record $a First record
+     * @param  Record $b Second record
      * @return Comparism value
      */
-    protected function compareRecords (LocalRecord $a, LocalRecord $b)
+    protected function compareRecords (Record $a, Record $b)
     {
         return $a->getILN() - $b->getILN();
     }

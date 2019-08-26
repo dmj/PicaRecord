@@ -184,11 +184,11 @@ class LocalRecord extends NestedRecord
      * @see CopyRecord::getItemNumber()
      * @see NestedRecord::compareRecords()
      *
-     * @param  CopyRecord $a First copy record
-     * @param  CopyRecord $b Second copy record
+     * @param  Record $a First copy record
+     * @param  Record $b Second copy record
      * @return integer Comparism value
      */
-    protected function compareRecords (CopyRecord $a, CopyRecord $b)
+    protected function compareRecords (Record $a, Record $b)
     {
         return $a->getItemNumber() - $b->getItemNumber();
     }
