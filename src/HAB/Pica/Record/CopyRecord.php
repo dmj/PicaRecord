@@ -120,7 +120,7 @@ class CopyRecord extends Record
             if ($epnSubfield) {
                 $epnSubfield->setValue($epn);
             } else {
-                $epnField->append(new Subfield('0', $epn));
+                $epnField->addSubfield(new Subfield('0', $epn));
             }
         } else {
             $this->append(new Field('203@', $this->getItemNumber(), array(new Subfield('0', $epn))));
